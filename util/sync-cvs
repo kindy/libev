@@ -1,0 +1,59 @@
+#!/usr/bin/env perl
+
+my $verfile = 'cvs-vers';
+
+my %vers = ();
+
+if (-f $verfile)  {
+    open(my $f, '<', $verfile) or die $!;
+    while (<$f>) {
+        if (m/^(.+):([\d.]+)$/) {
+            $vers{$1} = $2;
+        }
+    }
+    close $f;
+}
+
+my $rpath = "http://cvs.schmorp.de/libev";
+open(my $in, '-|', "curl -s $rpath/") or die $!;
+
+my %newf = ();
+
+while (<$in>) {
+    if (m/href="\/libev\/([^?]+)\?revision=([\d.]+)/) {
+        $newf{$1} = $2;
+    }
+}
+
+my $w = 0;
+
+for my $key (keys %newf) {
+    my $v = $newf{$key};
+    my $oldv = $vers{$key};
+
+    if ((!$oldv) || $v > $oldv) {
+        print "downloading $key:\n";
+        @args = ('curl', '-m', '8', "$rpath/$key", '-o', "src/$key");
+        if (system(@args) == 0) {
+            $w = 1;
+            $vers{$key} = $v;
+        } else {
+            print "download $key fail.\n";
+        }
+    }
+}
+
+if ($w > 0) {
+    open(my $f, '>', $verfile) or die $!;
+    for my $key (keys %vers) {
+        printf $f "%s:%s\n", $key, $vers{$key};
+    }
+    close $f;
+
+    print "file change\n";
+} else {
+    print "all file unchange\n";
+}
+
+print "done\n";
+

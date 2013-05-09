@@ -398,8 +398,10 @@ If this flag bit is or'ed into the flag value (or the program runs setuid
 or setgid) then libev will I<not> look at the environment variable
 C<LIBEV_FLAGS>. Otherwise (the default), this environment variable will
 override the flags completely if it is found in the environment. This is
-useful to try out specific backends to test their performance, or to work
-around bugs.
+useful to try out specific backends to test their performance, to work
+around bugs, or to make libev threadsafe (accessing environment variables
+cannot be done in a threadsafe way, but usually it works if no other
+thread modifies them).
 
 =item C<EVFLAG_FORKCHECK>
 

@@ -13,6 +13,8 @@ TODO: store loop pid_t and compare isndie signal handler,store 1 for same, 2 for
 TODO: embed watchers need updating when fd changes
 TODO: document portbaility requirements for atomic pointer access
 
+	- mark event pipe fd as cloexec after a fork (analyzed by Sami Farin).
+
 4.15 Fri Mar  1 12:04:50 CET 2013
         - destroying a non-default loop would stop the global waitpid
           watcher (Denis Bilenko).

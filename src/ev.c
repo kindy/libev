@@ -2106,8 +2106,6 @@ evpipe_init (EV_P)
           fd_intern (fds [0]);
         }
 
-      fd_intern (fds [1]);
-
       evpipe [0] = fds [0];
 
       if (evpipe [1] < 0)
@@ -2122,6 +2120,8 @@ evpipe_init (EV_P)
           dup2 (fds [1], evpipe [1]);
           close (fds [1]);
         }
+
+      fd_intern (evpipe [1]);
 
       ev_io_set (&pipe_w, evpipe [0] < 0 ? evpipe [1] : evpipe [0], EV_READ);
       ev_io_start (EV_A_ &pipe_w);

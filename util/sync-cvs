@@ -33,7 +33,7 @@ for my $key (keys %newf) {
 
     if ((!$oldv) || $v > $oldv) {
         print "downloading $key:\n";
-        @args = ('curl', '-m', '8', "$rpath/$key", '-o', "src/$key");
+        @args = ('curl', '-m', '30', "$rpath/$key", '-o', "src/$key");
         if (system(@args) == 0) {
             $w = 1;
             $vers{$key} = $v;

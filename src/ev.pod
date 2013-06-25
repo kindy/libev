@@ -3984,7 +3984,7 @@ you to use some convenience methods to start/stop watchers and also change
 the callback model to a model using method callbacks on objects.
 
 To use it,
-   
+
    #include <ev++.h>
 
 This automatically includes F<ev.h> and puts all of its definitions (many
@@ -5431,7 +5431,7 @@ new API early than late.
 =item C<EV_COMPAT3> backwards compatibility mechanism
 
 The backward compatibility mechanism can be controlled by
-C<EV_COMPAT3>. See L</PREPROCESSOR SYMBOLS/MACROS> in the L</EMBEDDING>
+C<EV_COMPAT3>. See L</"PREPROCESSOR SYMBOLS/MACROS"> in the L</EMBEDDING>
 section.
 
 =item C<ev_default_destroy> and C<ev_default_fork> have been removed

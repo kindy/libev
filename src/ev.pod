@@ -688,7 +688,7 @@ name, you can call it anytime, but it makes most sense after forking, in
 the child process. You I<must> call it (or use C<EVFLAG_FORKCHECK>) in the
 child before resuming or calling C<ev_run>.
 
-Again, you I<have> to call it on I<any> loop that you want to re-use after 
+Again, you I<have> to call it on I<any> loop that you want to re-use after
 a fork, I<even if you do not plan to use the loop in the parent>. This is
 because some kernel interfaces *cough* I<kqueue> *cough* do funny things
 during fork.

@@ -45,7 +45,7 @@ for my $key (keys %newf) {
 
 if ($w > 0) {
     open(my $f, '>', $verfile) or die $!;
-    for my $key (keys %vers) {
+    for my $key (sort keys %vers) {
         printf $f "%s:%s\n", $key, $vers{$key};
     }
     close $f;

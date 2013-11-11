@@ -243,10 +243,7 @@
 #elif defined _sys_nsig
 # define EV_NSIG (_sys_nsig) /* Solaris 2.5 */
 #else
-# error "unable to find value for NSIG, please report"
-/* to make it compile regardless, just remove the above line, */
-/* but consider reporting it, too! :) */
-# define EV_NSIG 65
+# define EV_NSIG (8 * sizeof (sigset_t) + 1)
 #endif
 
 #ifndef EV_USE_FLOOR
@@ -254,7 +251,7 @@
 #endif
 
 #ifndef EV_USE_CLOCK_SYSCALL
-# if __linux && __GLIBC__ >= 2
+# if __linux && __GLIBC__ == 2 && __GLIBC_MINOR__ < 17
 #  define EV_USE_CLOCK_SYSCALL EV_FEATURE_OS
 # else
 #  define EV_USE_CLOCK_SYSCALL 0
@@ -553,7 +550,7 @@ struct signalfd_siginfo
 
 /* work around x32 idiocy by defining proper macros */
 #if __x86_64 || _M_AMD64
-  #if __ILP32
+  #if _ILP32
     #define ECB_AMD64_X32 1
   #else
     #define ECB_AMD64 1
@@ -629,7 +626,7 @@ struct signalfd_siginfo
     #elif defined __s390__ || defined __s390x__
       #define ECB_MEMORY_FENCE         __asm__ __volatile__ ("bcr 15,0" : : : "memory")
     #elif defined __mips__
-      /* GNU/Linux emulates sync on mips1 architectures, so we force it's use */
+      /* GNU/Linux emulates sync on mips1 architectures, so we force its use */
       /* anybody else who still uses mips1 is supposed to send in their version, with detection code. */
       #define ECB_MEMORY_FENCE         __asm__ __volatile__ (".set mips2; sync; .set mips0" : : : "memory")
     #elif defined __alpha__
@@ -1069,10 +1066,34 @@ ecb_inline ecb_bool ecb_little_endian (void) { return ecb_byteorder_helper () ==
   #include <string.h> /* for memcpy */
 #else
   #define ECB_STDFP 0
-  #include <math.h> /* for frexp*, ldexp* */
 #endif
 
 #ifndef ECB_NO_LIBM
+
+  #include <math.h> /* for frexp*, ldexp*, INFINITY, NAN */
+
+  #ifdef NEN
+    #define ECB_NAN NAN
+  #else
+    #define ECB_NAN INFINITY
+  #endif
+
+  /* converts an ieee half/binary16 to a float */
+  ecb_function_ float ecb_binary16_to_float (uint16_t x) ecb_const;
+  ecb_function_ float
+  ecb_binary16_to_float (uint16_t x)
+  {
+    int e = (x >> 10) & 0x1f;
+    int m = x & 0x3ff;
+    float r;
+
+    if      (!e     ) r = ldexpf (m        ,    -24);
+    else if (e != 31) r = ldexpf (m + 0x400, e - 25);
+    else if (m      ) r = ECB_NAN;
+    else              r = INFINITY;
+
+    return x & 0x8000 ? -r : r;
+  }
 
   /* convert a float to ieee single/binary32 */
   ecb_function_ uint32_t ecb_float_to_binary32 (float x) ecb_const;

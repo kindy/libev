@@ -2415,9 +2415,9 @@ default loop and for C<SIGIO> in another loop, but you cannot watch for
 C<SIGINT> in both the default loop and another loop at the same time. At
 the moment, C<SIGCHLD> is permanently tied to the default loop.
 
-When the first watcher gets started will libev actually register something
-with the kernel (thus it coexists with your own signal handlers as long as
-you don't register any with libev for the same signal).
+Only after the first watcher for a signal is started will libev actually
+register something with the kernel. It thus coexists with your own signal
+handlers as long as you don't register any with libev for the same signal.
 
 If possible and supported, libev will install its handlers with
 C<SA_RESTART> (or equivalent) behaviour enabled, so system calls should

@@ -365,7 +365,7 @@
 # define EV_HEAP_CACHE_AT EV_FEATURE_DATA
 #endif
 
-#ifdef ANDROID
+#ifdef __ANDROID__
 /* supposedly, android doesn't typedef fd_mask */
 # undef EV_USE_SELECT
 # define EV_USE_SELECT 0

@@ -413,9 +413,10 @@ make libev check for a fork in each iteration by enabling this flag.
 This works by calling C<getpid ()> on every iteration of the loop,
 and thus this might slow down your event loop if you do a lot of loop
 iterations and little real work, but is usually not noticeable (on my
-GNU/Linux system for example, C<getpid> is actually a simple 5-insn sequence
-without a system call and thus I<very> fast, but my GNU/Linux system also has
-C<pthread_atfork> which is even faster).
+GNU/Linux system for example, C<getpid> is actually a simple 5-insn
+sequence without a system call and thus I<very> fast, but my GNU/Linux
+system also has C<pthread_atfork> which is even faster). (Update: glibc
+versions 2.25 apparently removed the C<getpid> optimisation again).
 
 The big advantage of this flag is that you can forget about fork (and
 forget about forgetting to tell libev about forking, although you still
@@ -4388,11 +4389,11 @@ in your include path (e.g. in libev/ when using -Ilibev):
 
    ev_win32.c      required on win32 platforms only
 
-   ev_select.c     only when select backend is enabled (which is enabled by default)
-   ev_poll.c       only when poll backend is enabled (disabled by default)
-   ev_epoll.c      only when the epoll backend is enabled (disabled by default)
-   ev_kqueue.c     only when the kqueue backend is enabled (disabled by default)
-   ev_port.c       only when the solaris port backend is enabled (disabled by default)
+   ev_select.c     only when select backend is enabled
+   ev_poll.c       only when poll backend is enabled
+   ev_epoll.c      only when the epoll backend is enabled
+   ev_kqueue.c     only when the kqueue backend is enabled
+   ev_port.c       only when the solaris port backend is enabled
 
 F<ev.c> includes the backend files directly when enabled, so you only need
 to compile this single file.

@@ -21,7 +21,10 @@ my %newf = ();
 
 while (<$in>) {
     if (m/href="\/libev\/([^?]+)\?revision=([\d.]+)/) {
-        $newf{$1} = $2;
+        my $f = $1;
+        $v = $2;
+        $f =~ s/%2B/+/g;
+        $newf{$f} = $v;
     }
 }
 
@@ -31,6 +34,7 @@ for my $key (keys %newf) {
     my $v = $newf{$key};
     my $oldv = $vers{$key};
 
+    print "file \"$key\" $oldv -> $v\n";
     if ((!$oldv) || $v > $oldv) {
         print "downloading $key:\n";
         @args = ('curl', '-m', '30', "$rpath/$key", '-o', "src/$key");

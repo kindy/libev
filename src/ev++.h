@@ -175,7 +175,7 @@ namespace ev {
 
     bool operator != (const EV_P) const throw ()
     {
-      return (*this == EV_A);
+      return ! (*this == EV_A);
     }
 
     operator struct ev_loop * () const throw ()
@@ -575,7 +575,7 @@ namespace ev {
       }
   #endif
 
-  /* using a template here would require quite a bit more lines,
+  /* using a template here would require quite a few more lines,
    * so a macro solution was chosen */
   #define EV_BEGIN_WATCHER(cppstem,cstem)	                                        \
                                                                                         \

@@ -1,8 +1,15 @@
 Revision history for libev, a high-performance and full-featured event loop.
 
+	- move the darwin select workaround highe rin ev.c, as newre versions of
+          darwin managed to break their broken select even more.
 	- ANDROID => __ANDROID__ (reported by enh@google.com).
         - disable epoll_create1 on android because it has broken header files
           and google is unwilling to fix them (reported by enh@google.com).
+        - avoid a minor compilation warning on win32.
+        - c++: rename EV_THROW to EV_NOEXCEPT.
+        - c++: remove deprecated dynamic throw() specifications.
+        - c++: improve the (unsupported) bad_loop exception class.
+        - backport perl ev_periodic example to C, untested.
 
 4.24 Wed Dec 28 05:19:55 CET 2016
 	- bump version to 4.24, as the release tarball inexplicably

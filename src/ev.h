@@ -51,6 +51,7 @@
 # define EV_CPP(x)
 # define EV_NOEXCEPT
 #endif
+#define EV_THROW EV_NOEXCEPT /* pre-4.25, do not use in new code */
 
 EV_CPP(extern "C" {)
 
@@ -211,7 +212,7 @@ struct ev_loop;
 /*****************************************************************************/
 
 #define EV_VERSION_MAJOR 4
-#define EV_VERSION_MINOR 24
+#define EV_VERSION_MINOR 25
 
 /* eventmask, revents, events... */
 enum {

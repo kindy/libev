@@ -3980,14 +3980,14 @@ libev sources can be compiled as C++. Therefore, code that uses the C API
 will work fine.
 
 Proper exception specifications might have to be added to callbacks passed
-to libev: exceptions may be thrown only from watcher callbacks, all
-other callbacks (allocator, syserr, loop acquire/release and periodic
-reschedule callbacks) must not throw exceptions, and might need a C<throw
-()> specification. If you have code that needs to be compiled as both C
-and C++ you can use the C<EV_THROW> macro for this:
+to libev: exceptions may be thrown only from watcher callbacks, all other
+callbacks (allocator, syserr, loop acquire/release and periodic reschedule
+callbacks) must not throw exceptions, and might need a C<noexcept>
+specification. If you have code that needs to be compiled as both C and
+C++ you can use the C<EV_NOEXCEPT> macro for this:
 
    static void
-   fatal_error (const char *msg) EV_THROW
+   fatal_error (const char *msg) EV_NOEXCEPT
    {
      perror (msg);
      abort ();

@@ -611,6 +611,8 @@ struct signalfd_siginfo
 
 #define ECB_CPP   (__cplusplus+0)
 #define ECB_CPP11 (__cplusplus >= 201103L)
+#define ECB_CPP14 (__cplusplus >= 201402L)
+#define ECB_CPP17 (__cplusplus >= 201703L)
 
 #if ECB_CPP
   #define ECB_C            0
@@ -622,6 +624,7 @@ struct signalfd_siginfo
 
 #define ECB_C99   (ECB_STDC_VERSION >= 199901L)
 #define ECB_C11   (ECB_STDC_VERSION >= 201112L)
+#define ECB_C17   (ECB_STDC_VERSION >= 201710L)
 
 #if ECB_CPP
   #define ECB_EXTERN_C extern "C"
@@ -660,11 +663,11 @@ struct signalfd_siginfo
     #if __i386 || __i386__
       #define ECB_MEMORY_FENCE         __asm__ __volatile__ ("lock; orb $0, -1(%%esp)" : : : "memory")
       #define ECB_MEMORY_FENCE_ACQUIRE __asm__ __volatile__ (""                        : : : "memory")
-      #define ECB_MEMORY_FENCE_RELEASE __asm__ __volatile__ ("")
+      #define ECB_MEMORY_FENCE_RELEASE __asm__ __volatile__ (""                        : : : "memory")
     #elif ECB_GCC_AMD64
       #define ECB_MEMORY_FENCE         __asm__ __volatile__ ("mfence"   : : : "memory")
       #define ECB_MEMORY_FENCE_ACQUIRE __asm__ __volatile__ (""         : : : "memory")
-      #define ECB_MEMORY_FENCE_RELEASE __asm__ __volatile__ ("")
+      #define ECB_MEMORY_FENCE_RELEASE __asm__ __volatile__ (""         : : : "memory")
     #elif __powerpc__ || __ppc__ || __powerpc64__ || __ppc64__
       #define ECB_MEMORY_FENCE         __asm__ __volatile__ ("sync"     : : : "memory")
     #elif defined __ARM_ARCH_2__ \
@@ -5001,12 +5004,6 @@ void
 ev_once (EV_P_ int fd, int events, ev_tstamp timeout, void (*cb)(int revents, void *arg), void *arg) EV_NOEXCEPT
 {
   struct ev_once *once = (struct ev_once *)ev_malloc (sizeof (struct ev_once));
-
-  if (expect_false (!once))
-    {
-      cb (EV_ERROR | EV_READ | EV_WRITE | EV_TIMER, arg);
-      return;
-    }
 
   once->cb  = cb;
   once->arg = arg;

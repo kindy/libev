@@ -267,12 +267,32 @@ You could override this function in high-availability programs to, say,
 free some memory if it cannot allocate memory, to use a special allocator,
 or even to sleep a while and retry until some memory is available.
 
+Example: The following is the C<realloc> function that libev itself uses
+which should work with C<realloc> and C<free> functions of all kinds and
+is probably a good basis for your own implementation.
+
+   static void *
+   ev_realloc_emul (void *ptr, long size) EV_NOEXCEPT
+   {
+     if (size)
+       return realloc (ptr, size);
+
+     free (ptr);
+     return 0;
+   }
+
 Example: Replace the libev allocator with one that waits a bit and then
-retries (example requires a standards-compliant C<realloc>).
+retries.
 
    static void *
    persistent_realloc (void *ptr, size_t size)
    {
+     if (!size)
+       {
+         free (ptr);
+         return 0;
+       }
+
      for (;;)
        {
          void *newptr = realloc (ptr, size);

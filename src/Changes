@@ -1,6 +1,7 @@
 Revision history for libev, a high-performance and full-featured event loop.
 
 	- removed redundant 0-ptr check in ev_once.
+        - updated/extended ev_set_allocator documentation.
 
 4.25 Fri Dec 21 07:49:20 CET 2018
         - INCOMPATIBLE CHANGE: EV_THROW was renamed to EV_NOEXCEPT

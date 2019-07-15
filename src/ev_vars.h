@@ -1,7 +1,7 @@
 /*
  * loop member variable declarations
  *
- * Copyright (c) 2007,2008,2009,2010,2011,2012,2013 Marc Alexander Lehmann <libev@schmorp.de>
+ * Copyright (c) 2007,2008,2009,2010,2011,2012,2013,2019 Marc Alexander Lehmann <libev@schmorp.de>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modifica-
@@ -105,6 +105,47 @@ VARx(int, epoll_eventmax)
 VARx(int *, epoll_eperms)
 VARx(int, epoll_epermcnt)
 VARx(int, epoll_epermmax)
+#endif
+
+#if EV_USE_LINUXAIO || EV_GENWRAP
+VARx(aio_context_t, linuxaio_ctx)
+VARx(int, linuxaio_iteration)
+VARx(struct aniocb **, linuxaio_iocbps)
+VARx(int, linuxaio_iocbpmax)
+VARx(struct iocb **, linuxaio_submits)
+VARx(int, linuxaio_submitcnt)
+VARx(int, linuxaio_submitmax)
+VARx(ev_io, linuxaio_epoll_w)
+#endif
+
+#if EV_USE_IOURING || EV_GENWRAP
+VARx(int, iouring_fd)
+VARx(unsigned, iouring_to_submit);
+VARx(int, iouring_entries)
+VARx(int, iouring_max_entries)
+VARx(void *, iouring_sq_ring)
+VARx(void *, iouring_cq_ring)
+VARx(void *, iouring_sqes)
+VARx(uint32_t, iouring_sq_ring_size)
+VARx(uint32_t, iouring_cq_ring_size)
+VARx(uint32_t, iouring_sqes_size)
+VARx(uint32_t, iouring_sq_head)
+VARx(uint32_t, iouring_sq_tail)
+VARx(uint32_t, iouring_sq_ring_mask)
+VARx(uint32_t, iouring_sq_ring_entries)
+VARx(uint32_t, iouring_sq_flags)
+VARx(uint32_t, iouring_sq_dropped)
+VARx(uint32_t, iouring_sq_array)
+VARx(uint32_t, iouring_cq_head)
+VARx(uint32_t, iouring_cq_tail)
+VARx(uint32_t, iouring_cq_ring_mask)
+VARx(uint32_t, iouring_cq_ring_entries)
+VARx(uint32_t, iouring_cq_overflow)
+VARx(uint32_t, iouring_cq_cqes)
+VARx(ev_tstamp, iouring_tfd_to)
+VARx(int, iouring_tfd)
+VARx(ev_io, iouring_tfd_w)
+VARx(ev_io, iouring_epoll_w)
 #endif
 
 #if EV_USE_KQUEUE || EV_GENWRAP

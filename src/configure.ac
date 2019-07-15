@@ -1,5 +1,5 @@
 dnl also update ev.h!
-AC_INIT([libev], [4.25])
+AC_INIT([libev], [4.27])
 
 orig_CFLAGS="$CFLAGS"
 

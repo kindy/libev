@@ -136,7 +136,7 @@ inline_size
 int
 poll_init (EV_P_ int flags)
 {
-  backend_mintime = 1e-3;
+  backend_mintime = EV_TS_CONST (1e-3);
   backend_modify  = poll_modify;
   backend_poll    = poll_poll;
 

@@ -147,7 +147,7 @@ epoll_poll (EV_P_ ev_tstamp timeout)
   int eventcnt;
 
   if (ecb_expect_false (epoll_epermcnt))
-    timeout = 0.;
+    timeout = EV_TS_CONST (0.);
 
   /* epoll wait times cannot be larger than (LONG_MAX - 999UL) / HZ msecs, which is below */
   /* the default libev max wait time, however. */
@@ -266,7 +266,7 @@ epoll_init (EV_P_ int flags)
   if ((backend_fd = epoll_epoll_create ()) < 0)
     return 0;
 
-  backend_mintime = 1e-3; /* epoll does sometimes return early, this is just to avoid the worst */
+  backend_mintime = EV_TS_CONST (1e-3); /* epoll does sometimes return early, this is just to avoid the worst */
   backend_modify  = epoll_modify;
   backend_poll    = epoll_poll;
 

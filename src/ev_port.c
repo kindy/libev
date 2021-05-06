@@ -70,7 +70,7 @@ port_associate_and_check (EV_P_ int fd, int ev)
     {
       if (errno == EBADFD)
         {
-          assert (("libev: port_associate found invalid fd", errno != EBADFD);
+          assert (("libev: port_associate found invalid fd", errno != EBADFD));
           fd_kill (EV_A_ fd);
         }
       else
@@ -158,7 +158,7 @@ port_init (EV_P_ int flags)
    * up. Since we can't know what the case is, we need to guess by using a
    * "large enough" timeout. Normally, 1e-9 would be correct.
    */
-  backend_mintime = 1e-3; /* needed to compensate for port_getn returning early */
+  backend_mintime = EV_TS_CONST (1e-3); /* needed to compensate for port_getn returning early */
   backend_modify  = port_modify;
   backend_poll    = port_poll;
 

@@ -270,9 +270,8 @@ linuxaio_modify (EV_P_ int fd, int oev, int nev)
       ++anfd->egen;
     }
 
-  iocb->io.aio_buf =
-      (nev & EV_READ ? POLLIN : 0)
-      | (nev & EV_WRITE ? POLLOUT : 0);
+  iocb->io.aio_buf = (nev & EV_READ  ? POLLIN  : 0)
+                   | (nev & EV_WRITE ? POLLOUT : 0);
 
   if (nev)
     {
@@ -439,7 +438,7 @@ linuxaio_get_events (EV_P_ ev_tstamp timeout)
       else
         break; /* no events from the kernel, we are done */
 
-      timeout = 0; /* only wait in the first iteration */
+      timeout = EV_TS_CONST (0.); /* only wait in the first iteration */
     }
 }
 
@@ -519,7 +518,7 @@ linuxaio_poll (EV_P_ ev_tstamp timeout)
                 backend_poll   = epoll_poll;
               }
 
-            timeout = 0;
+            timeout = EV_TS_CONST (0.);
             /* it's easiest to handle this mess in another iteration */
             return;
           }
@@ -569,7 +568,7 @@ linuxaio_init (EV_P_ int flags)
       return 0;
     }
 
-  ev_io_init  (EV_A_ &linuxaio_epoll_w, linuxaio_epoll_cb, backend_fd, EV_READ);
+  ev_io_init  (&linuxaio_epoll_w, linuxaio_epoll_cb, backend_fd, EV_READ);
   ev_set_priority (&linuxaio_epoll_w, EV_MAXPRI);
   ev_io_start (EV_A_ &linuxaio_epoll_w);
   ev_unref (EV_A); /* watcher should not keep loop alive */

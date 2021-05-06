@@ -197,7 +197,7 @@ select_poll (EV_P_ ev_tstamp timeout)
         {
           if (timeout)
             {
-              unsigned long ms = timeout * 1e3;
+              unsigned long ms = EV_TS_TO_MSEC (timeout);
               Sleep (ms ? ms : 1);
             }
 
@@ -275,7 +275,7 @@ inline_size
 int
 select_init (EV_P_ int flags)
 {
-  backend_mintime = 1e-6;
+  backend_mintime = EV_TS_CONST (1e-6);
   backend_modify  = select_modify;
   backend_poll    = select_poll;
 

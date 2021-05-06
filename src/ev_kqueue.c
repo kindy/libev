@@ -170,7 +170,7 @@ kqueue_init (EV_P_ int flags)
 
   fcntl (backend_fd, F_SETFD, FD_CLOEXEC); /* not sure if necessary, hopefully doesn't hurt */
 
-  backend_mintime = 1e-9; /* apparently, they did the right thing in freebsd */
+  backend_mintime = EV_TS_CONST (1e-9); /* apparently, they did the right thing in freebsd */
   backend_modify  = kqueue_modify;
   backend_poll    = kqueue_poll;
 

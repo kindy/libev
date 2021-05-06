@@ -123,11 +123,9 @@ VARx(int, iouring_fd)
 VARx(unsigned, iouring_to_submit);
 VARx(int, iouring_entries)
 VARx(int, iouring_max_entries)
-VARx(void *, iouring_sq_ring)
-VARx(void *, iouring_cq_ring)
+VARx(void *, iouring_ring)
 VARx(void *, iouring_sqes)
-VARx(uint32_t, iouring_sq_ring_size)
-VARx(uint32_t, iouring_cq_ring_size)
+VARx(uint32_t, iouring_ring_size)
 VARx(uint32_t, iouring_sqes_size)
 VARx(uint32_t, iouring_sq_head)
 VARx(uint32_t, iouring_sq_tail)
@@ -145,7 +143,6 @@ VARx(uint32_t, iouring_cq_cqes)
 VARx(ev_tstamp, iouring_tfd_to)
 VARx(int, iouring_tfd)
 VARx(ev_io, iouring_tfd_w)
-VARx(ev_io, iouring_epoll_w)
 #endif
 
 #if EV_USE_KQUEUE || EV_GENWRAP
@@ -226,6 +223,11 @@ VARx(EV_ATOMIC_T, sig_pending)
 VARx(int, sigfd)
 VARx(ev_io, sigfd_w)
 VARx(sigset_t, sigfd_set)
+#endif
+
+#if EV_USE_TIMERFD || EV_GENWRAP
+VARx(int, timerfd) /* timerfd for time jump detection */
+VARx(ev_io, timerfd_w)
 #endif
 
 VARx(unsigned int, origflags) /* original loop flags */
